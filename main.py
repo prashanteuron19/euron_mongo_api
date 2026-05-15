@@ -24,3 +24,11 @@ class EuronData(BaseModel):
 async def euron_data_insert_helper(data:EuronData):
     result =await euron_data.insert_one(data.dict())
     return str(result.inserted_id)
+
+@app.post("/euron/show")
+async def euron_data_show_helper():
+    cursor = euron_data.find()
+    euron_list = []
+    async for doc in cursor:
+        euron_list.append(doc)
+    return euron_list
